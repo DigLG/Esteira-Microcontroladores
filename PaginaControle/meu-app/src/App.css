@@ -1,0 +1,182 @@
+.dashboard {
+  width: min(100% - 48px, 960px);
+  margin: 0 auto;
+  padding: 48px 0;
+  text-align: left;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.dashboard h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 42px);
+  letter-spacing: -1px;
+}
+
+.status-badge {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border: 1px solid var(--border); /* Usa border color do index.css */
+  border-radius: 999px;
+  color: var(--text); /* Vem do index.css */
+  background: var(--social-bg); /* Vem do index.css */
+  font-size: 14px;
+  font-weight: 600;
+}
+/* Estilos específicos para os estados do programa */
+.status-badge--playing {
+  color: #176b36;
+  border-color: #a7d9b6;
+  background: #eaf7ee;
+}
+
+.status-badge--paused {
+  color: #805500;
+  border-color: #ead49a;
+  background: #fff7df;
+}
+
+.destination-card,
+.metric-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.destination-card {
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.destination-card h2,
+.metric-card h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.destination-card p {
+  margin-top: 8px;
+  color: var(--text-h);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  min-height: 120px;
+  padding: 20px;
+}
+
+.metric-card p {
+  margin-top: 16px;
+  color: var(--text-h);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.control-button {
+  display: inline-flex; /* Mantém flexivel e alinhado */
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 120px;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.control-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.control-button:hover:not(:disabled) {
+  filter: brightness(0.9);
+}
+
+.control-button:focus-visible {
+  outline: 3px solid var(--accent-border);
+  outline-offset: 3px;
+}
+
+.control-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.control-button--play { /* Cor do botão play-pause */
+  background: #218838;
+}
+
+.control-button--stop { /* Cor do botão stop */
+  background: #c82333;
+}
+
+.error-message { /* Cor da mensagem de erro e margem superior dela */
+  margin-top: 16px;
+  color: #b42318;
+}
+
+/* @media serve para tornar o layout responsivo em telas menores */
+@media (max-width: 760px) {
+  .dashboard {
+    width: min(100% - 32px, 560px); /* Ajusta a largura do dashboard, máximo de 560px */
+    padding: 32px 0;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+}
