@@ -1,4 +1,4 @@
-__DEBUG = True
+__DEBUG = False
 
 from object import Object
 from time import sleep
@@ -11,7 +11,7 @@ if __DEBUG:
 picture_delay_seconds: float = 0.05
 
 object_color_range_hsv = (
-    (35, 50, 50),
+    (35, 70, 70),
     (85, 255, 255),
 )
 
@@ -36,14 +36,12 @@ __identified_objects: list[Object] = []
 __last_identified_qr_code: str = None
 __last_identified_rotation: list[list[int]] = None
 
-__DEBUG = True
-
 def get_last_identified_object() -> Object | None:
     if len(__identified_objects) == 0: return None
     return __identified_objects.pop()
 
 
-def get_last_identified_rotation() -> list[float] | None:
+def get_last_identified_rotation() -> list[list[int]] | None:
     return __last_identified_rotation
 
 
@@ -62,7 +60,7 @@ def __look_for_qr_code(image) -> str | None:
     return data if data != '' else None
 
 
-def __look_for_object(image) -> list[int] | None:
+def __look_for_object(image) -> list[list[int]] | None:
     hsv = cvtColor(image, COLOR_BGR2HSV)
     filtered_image = inRange(hsv, object_color_range_hsv[0], object_color_range_hsv[1])
     contours, _ = findContours(filtered_image, RETR_TREE, CHAIN_APPROX_SIMPLE)
@@ -85,8 +83,11 @@ def __look_for_object(image) -> list[int] | None:
 
 
 while True:
-    if __should_look_for_object:
+    if __DEBUG or __should_look_for_object:
         _, image = __video_capture.read()
+
+        # if __DEBUG:
+        #     print(f"{__last_identified_qr_code} - {__last_identified_rotation}")
 
         if __last_identified_qr_code is None:
             __last_identified_qr_code = __look_for_qr_code(image)
